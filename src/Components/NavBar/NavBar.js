@@ -22,11 +22,9 @@ class NavBar extends React.Component {
     const { authed } = this.props;
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="#"><i class="fas fa-football-ball fa-2x"></i></a>
+      <a className="navbar-brand" href="#"><img src="https://i.imgur.com/GlFc3hM.png" alt="smokey logo"></img></a>
       <ul className = "ml-auto">
-      <li>
       <Auth authed={authed}/>
-      </li>
       </ul>
       </nav>
     );

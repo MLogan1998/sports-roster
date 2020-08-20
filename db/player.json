@@ -1,0 +1,32 @@
+{
+  "player1": {
+    "uid": "B4sSMBqe0kPkXvU2HnxmPdYVP9w2",
+    "name": "Peyton Manning",
+    "imgUrl": "https://i.imgur.com/x5QSEHN.jpg",
+    "position": "Quarterback"
+  },
+  "player2": {
+    "uid": "B4sSMBqe0kPkXvU2HnxmPdYVP9w2",
+    "name": "Reggie White",
+    "imgUrl": "https://i.imgur.com/nITHX8n.jpg",
+    "position": "Defensive End"
+  },
+  "player3": {
+    "uid": "B4sSMBqe0kPkXvU2HnxmPdYVP9w2",
+    "name": "Alvin Kamara",
+    "imgUrl": "https://i.imgur.com/7beLCQ2.jpg'",
+    "position": "Running Back"
+  },
+  "player4": {
+    "uid": "B4sSMBqe0kPkXvU2HnxmPdYVP9w2",
+    "name": "Eric Berry",
+    "imgUrl": "https://i.imgur.com/0wDS2RX.jpg",
+    "position": "Safety"
+  },
+  "player5": {
+    "uid": "B4sSMBqe0kPkXvU2HnxmPdYVP9w2",
+    "name": "Al Wilson",
+    "imgUrl": "https://i.imgur.com/AGxDzUb.jpg",
+    "position": "Linebacker"
+  }
+}
