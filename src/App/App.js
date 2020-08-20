@@ -2,10 +2,11 @@ import React from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
+import authData from '../helpers/data/authData';
 import connection from '../helpers/data/connection';
 
 import NavBar from '../Components/NavBar/NavBar';
-// import Auth from '../Components/Auth/auth';
+import Team from '../Components/Team/Team';
 
 import './App.scss';
 
@@ -33,12 +34,18 @@ class App extends React.Component {
   render() {
     const { authed } = this.state;
 
+    const loadComponent = () => {
+      if (authed) {
+        const uid = authData.getUid();
+        return <Team uid={uid}/>;
+      }
+      return '';
+    };
+
     return (
       <div className="App">
         <NavBar authed={authed}/>
-        {/* <Auth authed={authed}/> */}
-        <h2>Sports Roster</h2>
-        <button className="btn btn-info">I am a button</button>
+        {loadComponent()}
       </div>
     );
   }

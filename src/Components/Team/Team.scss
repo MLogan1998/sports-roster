@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
+
+h1 {
+  color: white;
+  text-shadow: 2px 2px darkgrey;
+  margin: 15px 0px;
+  font-size: 50px;
+  font-family: 'Alfa Slab One', cursive;
+}
+
+.rosterContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
