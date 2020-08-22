@@ -14,16 +14,28 @@ class Team extends React.Component {
     players: [],
   }
 
-  componentDidMount() {
+  getPlayers = () => {
     const { uid } = this.props;
     PlayerData.getPlayersByUid(uid)
       .then((players) => this.setState({ players }))
       .catch((err) => console.error(err));
   }
 
+  componentDidMount() {
+    this.getPlayers();
+  }
+
+  deletePlayer = (playerId) => {
+    PlayerData.deletePlayer(playerId)
+      .then(() => {
+        this.getPlayers();
+      })
+      .catch((err) => console.error(err));
+  }
+
   render() {
     const { players } = this.state;
-    const playerCard = players.map((player) => <Player key={player.id} player={player}/>);
+    const playerCard = players.map((player) => <Player key={player.id} player={player} deletePlayer={this.deletePlayer}/>);
 
     return (
       <div>
