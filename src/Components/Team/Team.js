@@ -14,6 +14,7 @@ class Team extends React.Component {
   state = {
     players: [],
     formOpen: false,
+    editPlayer: {},
   }
 
   getPlayers = () => {
@@ -44,19 +45,32 @@ class Team extends React.Component {
       .catch((err) => console.error(err));
   }
 
+  editAPlayer = (playerToEdit) => {
+    this.setState({ formOpen: true, editPlayer: playerToEdit });
+  }
+
+  updatePlayer = (playerId, editedPlayer) => {
+    PlayerData.editPlayer(playerId, editedPlayer)
+      .then(() => {
+        this.getPlayers();
+        this.setState({ formOpen: false, editPlayer: {} });
+      })
+      .catch((err) => console.error(err));
+  }
+
   closeForm = () => {
     this.setState({ formOpen: false });
   }
 
   render() {
-    const { players, formOpen } = this.state;
-    const playerCard = players.map((player) => <Player key={player.id} player={player} deletePlayer={this.deletePlayer}/>);
+    const { players, formOpen, editPlayer } = this.state;
+    const playerCard = players.map((player) => <Player key={player.id} player={player} deletePlayer={this.deletePlayer} editAPlayer={this.editAPlayer} />);
 
     return (
       <div>
       <h1>Big Orange Ballers</h1>
-      { !formOpen ? <button className="btn btn-secondary mb-2" onClick={() => { this.setState({ formOpen: true }); }}>Create New Player</button> : '' }
-      { formOpen ? <PlayerForm createPlayer={this.createPlayer} closeForm={this.closeForm}/> : '' }
+      { !formOpen ? <button className="btn btn-secondary mb-2" onClick={() => { this.setState({ formOpen: true, editPlayer: {} }); }}>Create New Player</button> : '' }
+      { formOpen ? <PlayerForm createPlayer={this.createPlayer} editPlayer={editPlayer} updatePlayer={this.updatePlayer} closeForm={this.closeForm}/> : '' }
       <div className = "rosterContainer">
       {playerCard}
       </div>
