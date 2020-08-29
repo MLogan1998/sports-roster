@@ -8,6 +8,13 @@ class Player extends React.Component {
   static propTypes = {
     player: playerShape.playerShape,
     deletePlayer: PropTypes.func.isRequired,
+    editAPlayer: PropTypes.func.isRequired,
+  }
+
+  editPlayerEvent = (e) => {
+    e.preventDefault();
+    const { editAPlayer, player } = this.props;
+    editAPlayer(player);
   }
 
   deletePlayerEvent = (e) => {
@@ -27,7 +34,7 @@ class Player extends React.Component {
   </div>
   <div className="card-footer">
   <i className="fas fa-trash" onClick={this.deletePlayerEvent}></i>
-  <i className="fas fa-edit"></i>
+  <i className="fas fa-edit" onClick={this.editPlayerEvent}></i>
   </div>
 </div>
     );

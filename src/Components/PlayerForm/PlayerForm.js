@@ -1,14 +1,48 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import authData from '../../helpers/data/authData';
 import './PlayerForm.scss';
 
 class PlayerForm extends React.Component {
+  static propTypes = {
+    createPlayer: PropTypes.func.isRequired,
+    closeForm: PropTypes.func.isRequired,
+    updatePlayer: PropTypes.func.isRequired,
+  }
+
   state = {
     isEditing: false,
     name: '',
     imgUrl: '',
     position: '',
+  }
+
+  componentDidMount() {
+    const { editPlayer } = this.props;
+    if (editPlayer.name) {
+      this.setState({
+        name: editPlayer.name,
+        position: editPlayer.position,
+        imgUrl: editPlayer.imgUrl,
+        isEditing: true,
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const previousPlayer = prevProps.editPlayer;
+    const incomingPlayer = this.props.editPlayer;
+
+    if (previousPlayer.name !== incomingPlayer.name) {
+      this.setState({
+        name: incomingPlayer.name || '',
+        position: incomingPlayer.position || '',
+        imgUrl: incomingPlayer.imgUrl || '',
+        // eslint-disable-next-line no-unneeded-ternary
+        isEditing: incomingPlayer.name ? true : false,
+      });
+    }
   }
 
   changeNameEvent = (e) => {
@@ -40,31 +74,51 @@ class PlayerForm extends React.Component {
     this.props.closeForm();
   }
 
+  editPlayerEvent = (e) => {
+    e.preventDefault();
+    const { name, position, imgUrl } = this.state;
+    const { updatePlayer, editPlayer } = this.props;
+
+    const editedPlayer = {
+      name,
+      position,
+      imgUrl,
+      uid: authData.getUid(),
+    };
+    updatePlayer(editPlayer.id, editedPlayer);
+  }
+
   closeFormEvent = (e) => {
     e.preventDefault();
     this.props.closeForm();
   };
 
   render() {
-    const { isEditing } = this.state;
+    const {
+      isEditing,
+      name,
+      position,
+      imgUrl,
+    } = this.state;
+
     return (
       <form>
      <button className="btn btn-danger" onClick={this.closeFormEvent}>Close Form</button>
      <div className="form-group">
        <label for="playerName">Player Name</label>
-       <input type="text" className="form-control" id="playerName" aria-describedby="emailHelp" placeholder="Enter Player Name" onChange={this.changeNameEvent}/>
+       <input type="text" className="form-control" id="playerName" aria-describedby="emailHelp" placeholder="Enter Player Name" value={name} onChange={this.changeNameEvent}/>
      </div>
      <div className="form-group">
        <label for="imgUrl">Image URL</label>
-       <input type="text" className="form-control" id="imgUrl" aria-describedby="emailHelp" placeholder="Enter Image URL" onChange={this.changeImgEvent}/>
+       <input type="text" className="form-control" id="imgUrl" aria-describedby="emailHelp" placeholder="Enter Image URL" value={imgUrl} onChange={this.changeImgEvent}/>
      </div>
      <div className="form-group">
        <label for="position">Position</label>
-       <input type="text" className="form-control" id="position" aria-describedby="emailHelp" placeholder="Position" onChange={this.changePositionEvent}/>
+       <input type="text" className="form-control" id="position" aria-describedby="emailHelp" placeholder="Position" value={position} onChange={this.changePositionEvent}/>
      </div>
      {
           isEditing
-            ? <button className="btn btn-light" onClick={this.editBoardEvent}>Edit Board</button>
+            ? <button className="btn btn-light" onClick={this.editPlayerEvent}>Edit Player</button>
             : <button className="btn btn-dark" onClick={this.savePlayerEvent}>Save Player</button>
      }
      </form>
